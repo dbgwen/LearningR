@@ -1,0 +1,42 @@
+## General Rules for Keeping Code Clean
+    1. Always use text files/ text editor
+    2. Indent your code
+        - Improve readbaility and forces you to think about writing code
+        - 8 space indent, 80 column margin 
+    3. Limit the width of the code
+    4. Limit the length of individual functions - one basic activity
+        - If function is for 'reading the data' it should only do that function
+        - Allows function to be written on a single page of code
+        - Keep track of where bugs might be hiding - better able to debug
+
+## Dates and Time in R
+    1. Dates are represented by the Date CLASS
+    2. Times are represented by the POSIXct of the POSIXlt CLASS
+    3. Dates are stored as the number of days since 1970-01-01
+    4. Times are stored internally as th enumber of secons since 1970-01-01
+    
+      ** Dates are stored as ojects of the Date CLASS
+         x <- as.Date("1970-01-01")
+         unclass(x)
+         unclass(as.Date("1970-01-01")
+
+      ** POSIX:is a family of family of standards for presenting dates and times
+         POSIXct - times represented as large integers, useful for storing time in dataframe
+              as.POSIXct(x)
+         POSIXlt - stores the day of week, day of year, month, day of month
+              as.POSIXlt(x)
+                  weekdays() = day of week
+                  months() = month name
+                  quarters() = quarter in year
+       ** strptime() = use if dates are written in a different format
+              datestring <- (c("January 10, 2012")
+              x<- strptime(datestrong, "%B %d, %Y %H:%M")
+              class(x)
+              check ?strptime page for format
+       ** Operations on Dates and Times
+              Can use mathematical operations (+ and (-) mostlye
+              Cannot mix POSIX types
+              Plotting functions will recognize the date/time object - plots will change
+   
+ 
+     
