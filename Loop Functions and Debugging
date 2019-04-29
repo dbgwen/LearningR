@@ -21,11 +21,22 @@
     lapply(x, runif) **runif generates random variables, can specifiy a min and max
     lapply uses "anonymous functions", which are functions without names
     
+    In general, if the result is a list where every element is of length one, then sapply() returns a vector. 
+    If the result is a list where every element is a vector of the same length (> 1), sapply() returns a matrix. 
+    If sapply() can't figure things out, then it just returns a list, no different from what lapply() would give you.
+    
 ** sapply **
   Will try to simplify the result of lapply, if possible. 
   - If the result is a list where every element is length 1, then a vector is returned
   - If the result is a list where every element is a vector of the same length (>1), a matrix is returned 
   - If it can't figure out how to simplify the object, a list is returned 
+  
+  Examples and Notes from Swirl: use flag_colors <- flags[, 11:17] to extract the columns containing the color data and store them 
+  in a new data frame called flag_colors. (Note the comma before 11:17. This subsetting command tells R that we want all rows, 
+  but only columns 11 through 17.
+  lapply(flag_colors, sum) **returns list
+  sapply(flag_colors, sum) **returns a vector
+  
   
 ** apply **
   Is used to valuate a function (often an anonymous function) over the margins of an array, it involves less typing.
