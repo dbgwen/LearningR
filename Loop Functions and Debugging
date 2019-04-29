@@ -148,3 +148,14 @@
   4. trace - allows you to insert debugging code into a function at specific places
   5. recover - allows you to modify the error behavior so that you ca nbrowse the function call stack
 
+** Using Debugging Tools **
+  traceback() - useful for communicating with others about debugging a code, most recent error shown
+  debug() - go through each line of function
+  options(error= recover) - function call stack, lets you pinpoint where error is
+  browser()
+  trace()
+  recover()
+  
+  
+  
+  
