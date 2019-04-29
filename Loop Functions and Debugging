@@ -1,0 +1,150 @@
+## Loop functions and Debugging
+
+1) Loop functions exectues a loop over an object or set of objects
+      lapply - loop over list and evaluate a function on each element
+      sapply - same as lapply, but try to simplify the results
+      apply - apply a function over the margins of an array (summaries of matrices)
+      tapply - apply a function over subsets of a vector
+      mapply - multivariate version of lapply
+      split - auxillary function is useful in conjunction with lappy, splits objects into subs
+
+** lapply ** 
+  Takes three arguments: a list (x), a function or name of function (FUN), and other arguments via '...'
+  If x is not a list it is coerced to a list using as.list (is possible)
+
+      x <- list(a = 1:5, b = rnorm(10))
+        lapply(x, mean) **applies the mean function over the elements in the list
+        $a
+        $b
+      x <- 1:4
+      
+    lapply(x, runif) **runif generates random variables, can specifiy a min and max
+    lapply uses "anonymous functions", which are functions without names
+    
+** sapply **
+  Will try to simplify the result of lapply, if possible. 
+  - If the result is a list where every element is length 1, then a vector is returned
+  - If the result is a list where every element is a vector of the same length (>1), a matrix is returned 
+  - If it can't figure out how to simplify the object, a list is returned 
+  
+** apply **
+  Is used to valuate a function (often an anonymous function) over the margins of an array, it involves less typing.
+  - It is often used to apply a function to the rows or columns of a matrix
+  - It can be used with general arrays, taking an average of an array of matrices
+  - It is not faster than writing a loop, but it works in one line
+  
+  str(apply)
+  function(x, MARGIN, FUN, ....)
+  - x is an array
+  - MARGIN is an integer vector indicating which margins should be "retained"
+  - FUN is a function to be applied
+  - ... is for other arguments to be passed to FUN
+  e.g. apply(x, 2, mean) ** calculating the mean or apply(x, 1, sum) **caluclating the sum of the rows
+  
+  col/row sums and means - for sums and means of matrix dimensions, there are shortcuts **equivalent to apply
+    rowSums = apply(x, 1, sum)
+    rowMeans = apply(x 1, mean)
+    colSums = apply(x, 2, sum)
+    colMeans = apply(x, 2, mean)
+  
+  Other ways to use apply
+  - Quintiles of the rows of a matrix 
+    x <- matrix(rnorm(200), 20, 10)
+    apply(x, 1, quantile, probs = c(0.25, 0.75)
+ 
+  Using apply with arrays - average matrix in an array (matrices stacked together)
+    a <- array(rnorm(2 * 2 * 10), c(2,2,10))
+    apply(a, c(1,2), mean)
+    rowMeans(a, dims = 2)
+    
+ ** mapply **
+  multivariate version of apply
+  
+  str(mapply)
+  function(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAME = TRUE)
+  - FUN is a function to apply
+  - ... contains arguments to apply over
+  - More ARGS is a list of other arguments to FUN
+  - SIMPLIFY indicates whether the result should be simplifed
+  
+  list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1) instead we can do: mapply(rep, 1:4, 4:1)
+  noise <- function(n, mean, sd) { 
+  rnorm(n, mean, sd) }
+  noise(5, 1, 2)
+  mapply(noise, 1:5, 1:5, 2) **instantly vectorize
+  
+** tapply **
+  used to apply a function over a subset of a vector - The first argument is a numeric vector. 
+  The second argument is another vector of the same length which identifies which group each element 
+  of the numeric vector is in. 
+  
+  str(tapply)
+  function (x, INDEX, FUN = NULL, ..., simplify = TRUE)
+  x = vector
+  INDEX = is a factor or list of factors 
+  FUN = function to be applied
+  ... = contains other arguments to pass FUN
+  
+  Take group means
+  x <- c(rnorm(10), runif(10), rnorm(10,1)
+  f <- gl(3, 10) ** gl is factor variable - 10 of each 1-3
+  tapply(x, f, mean)
+  tapply(x, f, mean, simplify = FALSE)
+  
+** split ** 
+  takes a vector or other objects and splits into groups determined by a factor or list of factors
+  it is very handy function for splitting arbitrary objects according to the levels of the factor and 
+  then applying any type of function.
+  can split elements of a list, splits a data frame, split other lists. 
+  
+  str(split)
+  function (x, f, drop = FALSE, ...)
+  x = vector (or list) or data frame
+  f = factor (or coerced to one) or list of factors
+  drop = indicates whether empty factors levels should be dropped
+
+  x <- c(rnorm(1), runif(10), rnorm(10,1)
+  f <- gl(3, 10)
+  split(x, f) **always returns a list back
+  lapply(split(x, f), mean) **same as tapply function
+  
+  library(datasets)
+  head(airquality)
+  s <- split(airquality, airquality$Month) **split into months
+  lapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")])) 
+  lapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")] na.rm= TRUE)) **remove missing values
+
+  **can split on more than one level, note: splitting on more than one level can create empty levels and empty levels can be rmeoved
+    x <- rnorm(10)
+    f1 <- gl(2, 5)
+    f2 <- gl(5, 2)
+    interaction(f1, f2) **interaction creates empty levels
+    str(split(x, list(f1, f2))) **show empty levels
+    str(split(x, list(f1, f2), drop = TRUE)) **empty levels dropped
+    
+2) Debugging
+    
+** R has built in indicators of problems with code **
+   1. message - generic notification/diagnostic message, will not stop function from running
+   2. warning - indication that something is wrong, but not necessarily is a problem, execution of function will complete
+   3. error - indication of a fatal problem, stops execution of function, produced by STOP function
+   4. condition - a generic ocncept for indicating something unexpected can occur, not considered one of the three above
+   
+  invisible(x) **will return object, but will not auto-print
+  function with invisible will not get printed to console
+  
+** Questions to ask about debugging function **
+  - what was your input? HOw did you call the function?
+  - what were you expecting? output, message, other results?
+  - what did you get?
+  - how does what you get differ from what you were expecting?
+  - were your expectations correct in the first place?
+  - can you reproduce the problem (exactly)?
+
+** Debugging Tools **
+  1. traceback - prints out the function call stack after an error occcurs
+  2. debug - flags a function for "debug" mode which allows you to step through execution of a function one line at a time
+  3. browser - suspends the execution of a function whenever it is called and puts the function in debug mode
+  4. trace - allows you to insert debugging code into a function at specific places
+  5. recover - allows you to modify the error behavior so that you ca nbrowse the function call stack
+
