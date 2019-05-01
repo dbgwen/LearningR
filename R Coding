@@ -54,4 +54,13 @@
                         categorical data: displays number of times each value(level) occurs
                table() - shows how many times each value actually occurs **example table(dataset$variable)
                str() - combines may of the above functions into a concise summary, provides name, class, and preview
-     
+     **Basic Graphics
+               plot(x,y) - (scatterplot) default to use names of columns for axis - plot(x,y,xlab, ylab)
+                    main = title, sub = subtitle, col = colors of plots, xlab = x-axis label, ylab = y-axis label
+                    xlim / ylim = limiting axis to certain numbers, pch = change symbols on plot
+                    formular argument plot(x ~ y)
+               ggplot2()
+               lattice()
+               boxplot()
+               hist() - useful for looking at one variable
+               
