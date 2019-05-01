@@ -38,5 +38,20 @@
               Cannot mix POSIX types
               Plotting functions will recognize the date/time object - plots will change
    
- 
+      **Looking at Data
+               ls() - lists the variable sin workspace
+               class() - overall structure of data
+               data.frame - (rows and columns) is how most data stored in R when using read.csv() or read.table()
+               dim() - how many rows and columns ** number of rows (observations) number of columns (variables)
+                    nrow() - see only the number of rows
+                    ncol() - see only the number of columns
+               object.size() - how much space the dataset is occupying in memory
+               names() - returns the chacter vector of column names (variable names)
+               head() - gives preview of the first six rows **can change it using head(x, 10)
+               tail() - same as head, but previews the last six rows
+               summary()
+                        numeric data: displays min, 1st quintile, median, mean, 3rd quintile, and max
+                        categorical data: displays number of times each value(level) occurs
+               table() - shows how many times each value actually occurs **example table(dataset$variable)
+               str() - combines may of the above functions into a concise summary, provides name, class, and preview
      
