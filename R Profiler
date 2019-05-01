@@ -1,0 +1,45 @@
+## R Profiles
+   - Tool for developing larger programs or doing a really big data analysis
+   - Profiling is a systematic way to examine how much time is being spent in various parts of programs - good for efficiency of code
+   - If pieces get embedded in a larger code, profiling can help optimize the code
+    
+** When coding, make sureit is readable and can run - worry about optimizing later
+      - Design code first
+      - Premature optimaization is root of all evil
+      Measure (collect data) on where datam ight be bogged down - profiling helps with this
+      
+** system.time()
+    - Takes arbitrary R expression as input and returns the amount of time to evaluate the expression
+    - Computes the time (in secs) needed to execute an expression
+    - When user time is double the elapsed time, the elasped time was being executed 
+  
+** Timing Longer Expression
+   system.time({
+   n <- 1000
+   r <- numeric(n)
+   for (i in 1:n) {
+        x <- rnorm(n)
+        r[i] <- mean(x)
+    }
+})
+
+** Rprof() functions starts the profile in R
+   - summaryRprof() function summarizes the output of Rprof
+        by.total divides the time spent in each function by the total run time
+        by.self does the same, but first substracts out time spent in functions above in the call stack
+   - Do not use Rprof with system.time function
+   - Rprof() keeps track fo function call stack at regularly sampled interval sand tabs how much time is spent in each function
+   - Default = 0.02 seconds
+   - If code runs quickly - don't need the profiler
+      sample.interval - how often sampled time
+      sampling.time - elapsed time
+   - Can help you decide how to break up code into smaller functions
+
+** by.total
+   tells you how much time is spent in top-level functions
+
+** by.self
+   tells you how much time is spent in top-level substracting all the other lower level functions
+    
+   
+    
