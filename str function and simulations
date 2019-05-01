@@ -1,0 +1,57 @@
+## str - compactly display the internal structure of an R object, most useful in R
+- gives you indepth look at what the object is
+
+## Simulations
+  rnorm: generates random normal variables given mean and sd
+  dnorm: evaluate the normal probability density at a point (or vector of points)
+  pnorm: evaluate cumulative dist function for normal
+  qnorm: quintile function
+  rpois: gives yu Poisson distrbution
+  
+  Each distribution has the option for these - must specifiy the mean and sd, without specifiying will return mean = 0 and sd = 1
+  d = density
+  r = random number
+  p = cumulative distribution
+  q = quintile function
+
+## example
+set.seed(1) **seed can be any integer, sets the sequence of random variables, allows us to reproduce the same random numbers twice. 
+rnorm(5)
+
+rpois(10, 1) ** 10 poisson variables with rate of 1.00
+ppois(2,2) **cumlative distibution, probably that it is less than equal to 2 given a rate = 2, evaluate probabilities
+
+## Simulation
+  - Drawing samples from specific probability distributions with r* functions
+  - Standard deviations are built in: Poisson, Binomial, Exponential, Gamma
+  - The 'sample' function can used to draw random samples from arbitrary vectors
+  - Setting the random number generator seed via set.seed is critical for reproducibility
+
+ ** Linear Model y= beta0 + beta1 + e
+    set.seed(20
+    x<- rnorm(100)
+    e<- rnorm(100, 0, 2)
+    y<- 0.5 + 2 * x+e
+    summary(y)
+ 
+ ** Binary model
+    set.seed(10)
+    x <- rbinom(100, 1, 0.5) **probability of 1 =0.5
+    e <- rnorm(100, 0, 2)
+    y <- 0.5 + 2 * x +e
+    plot(x, y)
+
+ ** Poisson model
+    set.seed(1)
+    x<- rnomr(100)
+    log.mu <- 0.5 + 0.3 * x
+    y <- rpois(100, exp(log.mu))
+    summary(y)
+    plot(x, y)
+
+ ** Simulating random sampling
+    set.seed(1)
+    sample(1:10, 4) ** sample integers 1-10, sample 4 randomly without replacement
+    sample(letters, 5)
+    sample(1:10) ** permutation
+    sample(1:10, replace = TRUE) ** sample with replacement
