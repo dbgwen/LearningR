@@ -1,0 +1,95 @@
+## Cleaning Data Week 1 ## 
+
+  ** Overview **
+    General steps: raw data -> processinf script -> tidy data -> data analysis -> data communication
+    Raw data: original source, hard to use for data analysis, data analysis includes processing, 
+              keep record on what you did to the raw data
+    Processed data: data is ready for analysis, processing includes mergng, subsetting, transforming
+              standards for processing, record all steps
+ 
+ ** 4 things you need to have **
+  - Raw data
+  - Tidy dataset
+  - Codebook describing variable and values - units, summary of choices made, experimental design used
+    Include a section for: study design, codebook, and instruction list  w/input for raw data, outout is processed data
+  - Explicit and exact recipe you used to go from raw data to processed data
+    
+** Downloading data **
+  - getwd() and setwd()
+  - Be aware of relative vs absolute paths
+  - file.exists() **checks to see if directory exists
+        if (!file.exists("data")) {
+          dir.create("data"
+          ]
+  - dir.create() **will create a directory if it doesn't exist
+  - download.file() **downloads from internet - if you do this by hand, helps with reproducibility 
+    url, destfile, and method need to specified
+  - dateDownloaded <- date()
+
+** Reading Local Files **
+  - read.table("data", sep = ",", header = TRUE) **not the best for large datasets
+        quote ="" (no quotes in file) - common problem in files being read
+        na.strings - represents missing value
+        nrows - how many rows to read of the file
+        skip - number of lines to skip before reading
+  - read.csv("data", sep="", header = TRUE)
+  - read.csv2()
+
+** Reading Excel Files **
+  - Excel sheets most common format to share data
+  - Download as .xlsx, can use xlsx package
+  - read.xlsx()
+  - read.xlsx2()
+  - colIndex, rowIndex
+  
+** Reading XML **
+  - Extensible markup language (XML)
+  - Used to store structured data, widely used in intervnet applications
+  - Extracting XML is the basis for most web scraping
+  - Markup labels that give the text structure
+  - Content actual text
+  - tags are general labels
+        <section> </section>
+        <line-break /> **empty tags
+        Elements are examples of tags - <Greeting> Hello, World </Greeting>
+        Attributes are components of the label
+       <img src ="picture.jpg" alt="picture"/>
+   - rootNode[[1]] **directly access parts of XML
+   - xmlSApply(rootNOde, xmlvalue)
+   - /node - top level node
+   - //node - node at any level
+   - xpathSApply(rootNode, "//name", xmlvalue)
+   - Can scrape webpages for data
+
+** Reading JSON FIles **
+   - JavaScript Object Notation (JSON)
+   - Lightweight data storage
+   - Common format for APIs
+   - Similar structure to XML, but different differentsyntax/format
+   - Data stored as
+        Numbers (double)
+        Strings (double quoted)
+        Boolean (true or false)
+        Array (ordered, comma separated enclosed in square brackets [])
+        Object (unordered, comma separated collection of key:value pairs in curly brackets{})
+   - library(jsonlite)
+     jsonData <- fromJSON("website")
+     names(jsonData$column)
+   - Turn a dataset into a JSON dataset ** nice for exporting data to be used by an API
+       myjson <- toJSON(dataset, pretty = TRUE)
+       cat(myjson)
+       dataset <- fromJSON(myjson)
+       head(dataset)
+
+** The data.table package **
+  - all functions that use data.frame can use data.table
+  - faster at subsetting, grouping, and updating variables, but uses slightly different syntax
+  - library(data.table)
+  - tables() - name of data table, rows, megabytes, columns, and key
+  - Subset datatable[row, column]
+  - Looking at certain values datatable[datatable$variable = "", ]
+  - Subsets based on rows c(row, row)
+  - subset columns using expressions
+  - add new columns datatable[, w:=z^2]
+  - datatable[, m:= [tmp <- (x+2); log2(tmp+5)}]
+  
