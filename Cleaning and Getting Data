@@ -1,4 +1,4 @@
-## Cleaning Data Week 1 ## 
+## Week 1 ## 
 
   ** Overview **
     General steps: raw data -> processinf script -> tidy data -> data analysis -> data communication
@@ -93,3 +93,56 @@
   - add new columns datatable[, w:=z^2]
   - datatable[, m:= [tmp <- (x+2); log2(tmp+5)}]
   
+## Week 2 ##
+
+** R MySQL **
+
+  uscsDb <- dbConnect(MySQL(), user="genome", db="hg19", 
+                    host="genome-mysql.cse.ucsc.edu")
+  allTable<- dbListTables(hg19)
+  length(allTables)
+  dbListFields(hg19, "affyU133Plus2")
+  
+  ** Total count
+   dbGetQuery(hg19, "select count(*) from affyU133plus2")
+   affyData <- dbReadTable(hg19, "affyU133Plus2")
+   head(affydata)
+  ** Subset
+    query <- dbSendQuery(hg19, "select * from affyU133Plus2 where misMatches between 1 and 3")
+    affyMis <- fetch(query); quantile(affyMiss$missMatches)
+
+  ** Grab only a few obs
+    affyMisSmall <- fetch(query, n=10); dbClearResult(query);
+
+   ** Close the connection
+    dbDisconnect(hg19)
+ 
+    
+ ** Reading Data from HDF5 **
+    Used for storing large datasets. Hierarchial data format
+   
+    ** R HDF5 Groups
+       created = h5createFroup("example.h5", "foo")
+       A = matrix(1:10, nr=5, nc=2)
+       h5write(A, "example.h5", "foo/A")
+       B = array(seq(0,1,1,0, by=0.1, dim = c(5,2,2))
+       
+    ** Write dataset
+       df = data.frame(1L:5L, seq(0,1,length.out=5), 
+          c("ab", "cde", "fghi", "a", "s"), stringAsFactors =FALSe)
+          h5write(df, "example.h5", "df")
+          h5ls("example.h5")
+          
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
