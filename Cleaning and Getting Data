@@ -132,8 +132,66 @@
           c("ab", "cde", "fghi", "a", "s"), stringAsFactors =FALSe)
           h5write(df, "example.h5", "df")
           h5ls("example.h5")
-          
-    
+        
+    ** Web Scrapping
+       Programmatically extracting data from HTML code of websites
+         - Many websites might have info you want to programatically read
+         - Some websites won't let you scrape their website
+         - Can use the XML package to parse the HTML
+             library(XML)
+             url <- "website"
+             html <- htmlTreeParse(url, useInternalNodes=T)
+             xpathSApply(html, "//title", xmlValue)
+             xpathSApply(html, "//info", xmlValue)
+         - Get command in the httr package
+              library(httr); html2=GET(url)
+              content2 = content(html(html2, as="text")
+              parsedHtml = htmlParse(content2, asText=TRUe)
+              xpathSApply(parsedHtml, "//title", xmlValue)
+         - Use handles
+             google = handle("http://google.com")
+             pg1 = GET(handle=google,path="/")
+             pg2 = GET(handle=google,path="search")
+           
+   ** Reading from APIs
+      Application Programming Interfaces
+        - Can use get requests with URLs
+        - httr package to get data from website
+        - Need to be a member of the dev team for that website - e.g. Twitter Dev 
+                  ** Example for request for home timeline
+                  myapp = oautho_app("twitter", 
+                                       key"youconsumerkey", secret="yousecrethere")
+                  sig = sign_oauth1.0(myapp, 
+                                       token="yourtokenhere", 
+                                       token_secret = "yoursecrettokenhere")
+                  homeTL = GET("website") **use resource URL
+                  json1 = content(homeTL)
+                  json2 = jsonlite::fromJSON(toJSON(json1))
+                  json2[1, 1:4]
+        - httr allows: GET, POST, PUT, DELETE requests if you are authorized
+        - httr works well with Facebook, Google, Twitter, Github
+   
+   ** Reading from Other Sources
+      Useful packages
+        - foreign package: loads data from Minitab, S, SAS, SPSS, Stat, Systat
+          read.dta (stata)
+          read.mtp (Minitab)
+          read.spss (SPSS)
+          read.xport (SAS)
+        - RODBC interfaces to multiple databases - MySQL, Microsoft Access, SQLite
+        - RMongo - rmongodb
+        - tuneR - read in music data
+        - seewave - analyze music data
+        
+      Work directly with files
+        - file - function to access connection to a file 
+        - url
+        - gzfile and bzfile - zipped filed
+        - jpeg: work with images
+        - readbitmap
+        - png
+        - EBImage in Bioconductor
+        
     
  
  
