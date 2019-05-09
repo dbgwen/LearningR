@@ -418,10 +418,17 @@
                   Can work with other backend dataframes
                   data.table for large fast tables
                   SQL interfaces for relational databases via the DBI package
-                - Merging Databases
+                  
+             Merging Datasets
+                - Merging Databases - can use merge() command
                   merge() - x, y, by, by.x, by.y, all
                   mergedData = merge(dataframe, dataframe, by.x="id variable", by.y="id", all=TRUE)
-                  head(mergedData)
+                  head(mergedData) ** default is to merge on all common column names, will create a larger dataframe if there is mismatching
+                - Merging with plyr - useful for multiple dataframes with common id
+                  Has to merge on thebasis of id - use join command in plyr package
+                  arrange(join(dataframe1, dataframe2), id)
+                  dfList = list(df1, df2, df3)
+                  join_all(dfList)
                   
        
     
