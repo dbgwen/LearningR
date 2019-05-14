@@ -430,6 +430,95 @@
                   dfList = list(df1, df2, df3)
                   join_all(dfList)
                   
+                  
+## Week 4 ##
+
+            Editing Text Variables
+               - tolower(names(dataframe)) **makes variable all lower case
+               - toupper(names(dataframe)) **makes variable all upper case
+               - e.e. location.1 - splitNames = strssplit(names(dataframe), "\\.")
+                 splitNames[[6]] **shows sixth element to see that variable split
+               - lists 
+                 mylist[[1]] **select first element
+                 mylist$variable **select variable
+                 firstElement <- function(x){x[1]} **remove all periods
+                 sapply(splitNames, firstElement)
+               - Fixing character vectors using gsub()
+                 testName <- "dataset"
+                 sub("_", "", testName) **replaces the first underscore
+                 gsub("_", "", testName) **replaces all underscores in variable name
+               - Finding values in variables
+                 grep("whattofind", dataframe$variable) **will return where it appears
+                 table(grep("whatofind", dataframe$variable)) **returns true and flase
+                 dataframe <- dataframe[!grep("whattofind", dataframe$variable)) **make dataframe of what you find
+                 grep("whattofind", dataframe$variable, value=TRUE) **shows what you ar elooking for
+               - library(stringer)
+                 nchar("string") **length of string
+                 substrl("string", 1, 7) ** find 1-7 of string
+                 str_trim("observation") **trim off excess space that appears at the end of string
+             
+             Important Points About Text in Data Sets
+               - Names of variables should be all lower case, descriptive, not duplicated, and not underscored, have dots, or spaces
+               - Variables with character values should be made into factor variables, be descriptive (TRUE/FALSE, not T/F)
+               
+             Regular Expressions
+               - Literals (words of language) and metacharacters (grammar)
+                 Consist of words that match exactly 
+               - Regular expressions consits of only literals - match occurs if the sequence of literals occurs anywhere
+               - Metacharacters - more general search terms
+                 ^i think **match "i think" only for the start of line 
+                 morning$ **match all lines with morning at the end
+                 [Bb] **either a lower/upper case "b" will capture whether something is Bush or bush 
+                 ^[Ii] am **look at beginning of line with upper or lower case "i" and the literal "am"
+                 ^[0-9] [a-zA-Z] **specify a range of letters or numbers at the beginning of each line
+                 [^?.]$ **end of line with dollar sign find ending of lines with "?" or "."
+                 "." refers to any character **example 9.11 will match lines with any 9 followed by 11 (9-11, 9/11)
+                 "|" flood|fire will match any lines with fire or flood in each line
+                 ^([Gg]ood|[Bb]ad) **will match lines with "bad" "Bad" or "good" or "Good" at the beginning
+                 ^([Gg]eroge( [Ww]\.)? ** "?" denotes optional, \ says "." is not a metacharacter, but literal dot
+                 (.*) **something between parentheses and can repeated as many times ( ) or (1, 2, 3)
+                 [0-9) + (.*) **"+" denotes at least one of te numbers, any possible of numbers seperated anything but numbers
+                 { } are interval qualifiers, let us specify the min and max number of mataches of an expression
+                 * star will match the longest possible string that satisifies the regular expression ^s(.*)s$
+                 add "?" to make it so the * is not as long ^s(.*)?s$
+               - Regular expressions are used in many programming languages
+               - Regular expressions are literals and metacharacters that represent sets or classes of characters/words
+               - Test processing via regular expressions is very powerful way to extract data from "unfriendly" sources (data not from CSVs)
+               - Used with functions grep, grep1, and sub.gsub
+               
+            Working with Dates
+               - d1 = date() **gives you time right now - class is character
+               - d2 = Sys.Date() **no time, and class is Date - has different properties
+                  - %d = day as number
+                  - %a = abbreviated weekday
+                  - %A = unabbreviated weekday
+                  - %m = month (00-12)
+                  - %b = abbreviated month
+                  - %B = unabbreviated month
+                  - %y = 2 digit year
+                  - %Y = four digit year
+               - Creating dates
+                 x = c("1jan1960", "datestring", etc); z= as.Date(x, "%d%b%Y")
+                 z[1] - z[2] **difference in time between first and second day
+                 as.numeric(z[1]-[2]) **difference between dates
+               - weekdays(d2) **convert to Julian
+               - Lubridate package - convert number to date regardless of format
+                 library(lubridate); ymd("20140108") turns into date
+                 mdy(month, day, year)
+                 dmy(day, month, year)
+                 ymd_hms("year, month, day hour, min, secs") **turns to date object
+                 ?5ys.timezone **help with timezones
+                 
+                 
+               
+            
+                 
+                 
+                 
+                 
+                
+           
+                 
        
     
            
