@@ -120,7 +120,35 @@
                 example(points) - will give you examples of the available points
       
        ## Graphics Devices
-       
+          - They are something you can make a plot appear - a window or screen, PDF, PNG, SVG
+          - When you make aplot in R, it has to be sent to agrpahic device to be generated
+            Most common sent to windows
+          - Use ?Devices to see full list of where to send a plot
+          - For plots to be printer out, usually a file device is more appropriate
+          - Call a plotting function, e.g. plot, xyplot, qplot
+            Plot appears on device
+            Annotate plot
+            Enjoy
+          - Explicitly launch a file device to make plot - creating a plot to another device
+            Call plot function
+            Annotatre plot
+            Explicitly close graphics device dev.off()
+          - Graphic file devices
+                1. pdf: useful for line-type graphics, resizes well
+                2. svg: XML-based scalable vector graphics supports web-based plots
+                3. win.metafile: windows metafile format (only windows)
+                4. postscript: older format, resizes well, postscript file
+                5. png: portable network graphics, good for line drawings, does not resize well
+                6. jpeg: good for photographs, natural scenes, uses many points, does not resize well
+                7. tiff: creates bitmap files in the TIFF format
+                8. bmp: a native Windows bitmapped format
+           - Can have multiple open graphics devices to view all the graphics, can only plot to one device at a time
+           - The currently active can be found using dev.cur(), every graphic device assigned an integer from 2+
+           - copy plots using dev.copy()
+           - copy to a PDF file using dev.copy2pdf()
+           
+          
+           
        
        
        
