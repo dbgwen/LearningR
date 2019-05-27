@@ -1,0 +1,23 @@
+## Swirl Lesson - Principals of Analytical Grpahs
+www.edwardtufte.com
+
+    ## Exploring the data
+       head(dataframe) - column names and first rows of data under them
+       dim(dataframe) - rows and columns
+       summary(dataframe$variable) - shows the five summary numbers (min, max, mean, median, IQR)
+       quantile(vairbale) - shows the IQR for 0, 25, 50, 75, 100
+       boxplot(variable, col ="blue") - gives blue boxplot
+          abline(h = 12) - adds horizontal line to boxplot
+       hist(variable, col ="green") - histogram of variable in green
+          rug(variable) - adds the plots below the histogram
+          abline(v=12, lwd = 2) - adds vertical line at 12 and makes it a width of 2
+          hist(variable, col="green", breaks =100)  - adds number of buckets
+       names(pollution) - gives you names of th eother variables in the dataframe
+       table(dataframe$variable) - shows the data in table form
+       barplot(dataframe$variable, col="wheat", main= "plot title")
+       boxplot(y~x, data=dataframe, col="red")
+       par(mfrow=c(2,1),mar=c(4,4,2,1)) - 1 column with 2 rows, put in top position
+          hist(subset(dataframe,variable=="category")$variable, col = "green")
+       with(dataframe, plot(x, y)) - make scatterplot with variables from dataframe
+          abline(h=12, lwd=2, lty=2) - adds horizontal line at 12
+          
