@@ -211,8 +211,9 @@
               qplot(x, y,data = dataframe, color = factor variable,	geom=c("point",	"smooth"),method="lm") - fits regression lines for each level of factor variable
               qplot(x, y,data = dataframe,geom=c("point","smooth"),method="lm", facets = .~factor variable) - adds seperate graph for each level of factor variable
               qplot(x, y, data = dataframe, facets = . ~ factor variable, geom=c("point", "smooth"), method = "lm”) - fits regression lines on two seperate scatterplots
+           - Other qplot notes
               g <- ggplot(x, y) - save plot as an object
-              print(g)
+              print(g) - prints the plot
               p <- g + geom_point() - auto-print object without saving
               geom_smooth - lowess smoother line on plot
               geom_smooth(method = "lm") - adds a regression line instead of a lowess line
@@ -221,8 +222,10 @@
               theme(legen.position = "none") - colors and position
               theme_gray() - gray background
               theme_bw() - more stark and plain
-              color of points, color ="steelblue"
-
+              color of points, color ="steelblue" - changes color of points
+              axis limits - coord_cartesian(ylim = c(-3, 3)) - sets the y-axis limits
+              Use cut() to make a variable categorical, useful for qplot plots using a categorical variable
+              
               
               
               
