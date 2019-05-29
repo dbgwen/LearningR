@@ -147,7 +147,89 @@
            - copy plots using dev.copy()
            - copy to a PDF file using dev.copy2pdf()
            
+ ## Week 2
+        
+     ## Lattice Plotting Systems - useful for high dimensional data and multiple plots
+        lattice - contains code for producing Trellis graphics, indpendent of "base" graphics.
+            1. xyplot: main function for creating scatterplots
+            2. bwplot: boxplots
+            3. histogram: histograms
+            4. stripplot: boxplot with points
+            5. dotplot: plot dots on violin strings
+            6. splom: scatterplot matrix
+            7. levelplot, contourplot: plotting "image" data
+            
+         lattice example
+            library(lattice)
+            xyplot(y ~ x | f * g, data=dataframe, layout=c(1,2)
+            * = interaction
+            f and g = conditoning variables
+            if no dataframe is passed, the parent frame is used
+            layout = allows for graphs to be side-by-side or in a column
+         
+         lattice vs base
+            - Base graphics plot data directly to graphics device
+            - lattice returns an object class - trellis and auto prints object
+            - can save plot object and have it saved to workspace
+            - p <- xyplot(y ~ x, data=dataframe)
+              print(p)
           
+         lattice sas a panel function 
+            - xyplot(y ~ x | f, panel = function(x,y, ...) {
+                panel.xyplot(x,y, ...) - first call the default function
+                panel.abline(h=median(y), lty=2) - add a horizontal line at the median
+                    })
+            - add regression line with panel.lmline(x, y, col=2)
+            - cannot use annotation, must put it all in with one call
+               set.seed(10)
+                x <- rnorm(100)
+                f <- rep(0:1, each = 50)
+                y <- x + f - f * x + rnorm(100, sd = 0.5)
+                f <- factor(f, labels = c("Group 1", "Group 2"))
+                xyplot(y ~ x | f, layout = c(2, 1)) - plot with 2 panels
+      
+      ## ggplot2
+          Combination of base and lattice plotting systems
+            - An implementation of the "Grammar of Graphics" by Leland Wilkinson, created by Hadley Wickham
+            - ggplot2 differs from base and lattice, easier to implement subsets of data using factors variables
+          
+          The basics of ggplot2 - qplot
+            - library(ggplot2)
+              qplot(x, y, data = dataframe)
+              qplot(x, y, data = dataframe, color=factor variable) - adds auto legend with color for each level of factor
+              qplot(x, y, data = dataframe, geom=c("point", "smooth")) - adds a visual representation of a subset of observations
+              qplot(x, data = dataframe) - provides a histogram
+              qplot(x, data = dataframe, fill=factor variable) - provides a histogram with factors colored in with legend
+              qplot(x, y, data =dataframe, facets =.~factor variable) - adds seperate graphs by factor variable
+              qplot(x, data = dataframe, facets = factor variable ~., binwidth =2) - adds seperate graphs of histograms by factor variable
+              qplot(log(x), data= dataframe) - histogram of the log transformed variables
+              qplot(log(x), data = dataframe, fill - factor variable) - histogram by group
+              qplot(log(x), data = dataframe, geo = "density") - lowess-type smoothing line
+              qplot(log(x), data = dataframe, geo="density", color = factor variables)
+              qplot(x, y, data=dataframe) - scatterplot
+              qplot(x, y, data = dataframe, shape = factor variable) - makes each point a different shape for each level of factor variable
+              qplot(x, y,data = dataframe, color = factor variable,	geom=c("point",	"smooth"),method="lm") - fits regression lines for each level of factor variable
+              qplot(x, y,data = dataframe,geom=c("point","smooth"),method="lm", facets = .~factor variable) - adds seperate graph for each level of factor variable
+              qplot(x, y, data = dataframe, facets = . ~ factor variable, geom=c("point", "smooth"), method = "lm”) - fits regression lines on two seperate scatterplots
+              g <- ggplot(x, y) - save plot as an object
+              print(g)
+              p <- g + geom_point() - auto-print object without saving
+              geom_smooth - lowess smoother line on plot
+              geom_smooth(method = "lm") - adds a regression line instead of a lowess line
+              facets - useful for conditoning on a factor variable - make sure factor variables are labeled nicely
+              xlab(), ylab(), labs(), ggtitle() - to label titles, axis
+              theme(legen.position = "none") - colors and position
+              theme_gray() - gray background
+              theme_bw() - more stark and plain
+              color of points, color ="steelblue"
+
+              
+              
+              
+          
+            
+     
+        
            
        
        
