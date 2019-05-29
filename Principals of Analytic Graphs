@@ -21,3 +21,71 @@ www.edwardtufte.com
        with(dataframe, plot(x, y)) - make scatterplot with variables from dataframe
           abline(h=12, lwd=2, lty=2) - adds horizontal line at 12
           
+    ## Graphic Devices - something where you can make a plot appear, either a screen device, such as a window on your computer, OR a file device
+        These include PDF, PNG, JPEG, SVG, TIFF - ??Device and ?Devices in R
+        Two approaches to plotting: 
+            1. Plotting to the screen using a call plot function - xyplot, qplot, etc - with(faithful, plot(eruptions, waiting))
+            dev.cur() - shows you the current plotting device
+            2. Send to a file device - pdf(file="myplot.pdf") - creates a pdf file in working directory, dev.off() - closes device
+                - vector: good for line drawings and plots with solid colors
+                      1. pdf - useful for line type graphics, resizes well, not efficient for many points
+                      2. XML-based: scalable, animation, interaction, web-based plots
+                      3. win.metafile: resizes well
+                      4. postscript (ps): resizes well
+                - bitmap: good for plots with large numbers of points, natural scenes, and web-based plots\
+                      1. png (portable network graphics) - good for line drawings, images with solid colors, lossless compression, web browsers, good for many points, does not resize well
+                      2. jpeg - good for photos, good for plots with may points, don't resize well, web browser, not good for line drawings
+                      3. tiff - lossless compression meta-format
+                      4. bitmap - native Windows bitmapped format
+      ## Plotting Systems
+         1. Base Plotting System - comes with R, "Artists Palette" model, build step-by-step, can't go backwards to change things beware
+            with(cars, plot(speed, dist))
+            text(mean(cars$speed), max(cars$dist), "SWIRL rules!")
+         2. Lattice System - create graphic with single function call, margins and spacing automatically set, good for many plots, cannot add to it, have to have everything in one function
+            xyplot(Life.Exp~Income | region, data = state, layout =c(4,1))
+         3. ggplot2 - hybrid of base and lattice systems, automatically deals with spacing, text, titles, and can add to the plot
+            qplot(displ, hwy, data=mpg)
+        
+      ## Base Plotting
+         hist(airquality$Ozone)
+         boxplot(Ozone~Month, airquality)
+            boxplot(Ozone~Month, airquality, xlab="Month", ylab="Ozone (ppb)", col.axis="blue", col.lab="red")
+            title(main="Ozone and Wind in New York City")
+            with(airquality, plot(Wind, Ozone))
+            legend("topright",pch=c(17,8),col=c("blue","red"),legend=c("May","Other Months"))
+            abline(v=median(airquality$Wind),lty=2,lwd=2) - adds median line with width of 2
+            length(par()) - how many parameters you can specify
+            par(mfrow=c(1,2)) - plots side by side
+            par(mfrow = c(1,3), mar= c(4,4,2,1), oma= c(0,0,2,0)) - plots 3 side by side with margins set at 4, 4, 2, and 1
+            names(par())
+                 [1] "xlog"      "ylog"      "adj"       "ann"       "ask"      
+                 [6] "bg"        "bty"       "cex"       "cex.axis"  "cex.lab"  
+                [11] "cex.main"  "cex.sub"   "cin"       "col"       "col.axis" 
+                [16] "col.lab"   "col.main"  "col.sub"   "cra"       "crt"      
+                [21] "csi"       "cxy"       "din"       "err"       "family"   
+                [26] "fg"        "fig"       "fin"       "font"      "font.axis"
+                [31] "font.lab"  "font.main" "font.sub"  "lab"       "las"      
+                [36] "lend"      "lheight"   "ljoin"     "lmitre"    "lty"      
+                [41] "lwd"       "mai"       "mar"       "mex"       "mfcol"    
+                [46] "mfg"       "mfrow"     "mgp"       "mkh"       "new"      
+                [51] "oma"       "omd"       "omi"       "page"      "pch"      
+                [56] "pin"       "plt"       "ps"        "pty"       "smo"      
+                [61] "srt"       "tck"       "tcl"       "usr"       "xaxp"     
+                [66] "xaxs"      "xaxt"      "xpd"       "yaxp"      "yaxs"     
+                [71] "yaxt"      "ylbias"
+                - The par() function is used to specify global graphics parameters
+                  that affect all plots in an R session. (Use dev.off or plot.new to
+                  reset to the defaults.) These parameters can be overridden when
+                  specified as arguments to specific plotting functions. These include
+                  las (the orientation of the axis labels on the plot), bg (background
+                  color), mar (margin size), oma (outer margin size), mfrow and mfcol
+                  (number of plots per row, column).
+                - mfrow and mfcol, both deal with multiple plots in that
+                  they specify the number of plots per row and column. The difference
+                  between them is the order in which they fill the plot matrix. The
+                  call mfrow will fill the rows first while mfcol fills the columns
+                  first.
+                  points(notmay$Wind,notmay$Ozone,col="red",pch=8)
+            
+            
+        
