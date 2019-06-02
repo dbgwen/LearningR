@@ -1,4 +1,4 @@
-## Swirl Lesson - Principals of Analytical Grpahs
+## Swirl Lessons - Principals of Analytical Grpahs
 www.edwardtufte.com
 
     ## Exploring the data
@@ -86,6 +86,26 @@ www.edwardtufte.com
                   call mfrow will fill the rows first while mfcol fills the columns
                   first.
                   points(notmay$Wind,notmay$Ozone,col="red",pch=8)
-            
-            
+    
+   ## Lattice System Plotting
+       lattice - xyplot, bwplot, levelplot, hist, and (stripplot, dotplot, splom and levelplot)
+        - All plotting is done at once, not piecemeal 
+            xyplot(y ~ x | f * g, data)
+            xyplot(Ozone~Wind | as.factor(Month), data=airquality, layout=c(5,1))
+            xyplot(Ozone~Wind, data=airquality, pch=8, col="red", main="Big Apple Data")
+            names(plot) - gives you all the options that you could name or change
+            mynames[myfull] - shows you which of the entries for the plot are not NULL
+   
+   ## Working with Colors - grDevices
+        col=c(1:3) - gives you black, red, and green colors for the plot
+        heat.colors - gives you heat colors, low values are yellow, high values are red
+        topo.colors - topological colors, blue is low values and brown are high values
+        sample(colors(), 10)
+        colorRamp - 
+        colorRampPalette - 
+        plot(x, y, pch=19, col=rgb(0, .5, .5, .3))
+        colorBrewer()
+        rgb function - alpha is the transparency
+        
+       
         
