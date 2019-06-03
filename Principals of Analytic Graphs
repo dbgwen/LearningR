@@ -106,6 +106,20 @@ www.edwardtufte.com
         plot(x, y, pch=19, col=rgb(0, .5, .5, .3))
         colorBrewer()
         rgb function - alpha is the transparency
-        
-       
+   
+  ## ggplot2 
+    - DATA FRAME which contains the data you're trying to plot
+    - AESTHETIC MAPPINGS determine how data are mapped to color, size, etc
+    - GEOMS (geometric objects) are what you see in the plot (points, lines, shapes) object+geom_point()
+    - FACETS are the panels used in conditional plots
+    - STATS are statistical transformations such as binning, quantiles, and smoothing which ggplot2 applies to the data
+      qplot can make scatter, histograms, box and whisker plots
+    - SCALES show what coding an aesthetic map uses (for example, male = red, female = blue)\
+    - COORDINATE SYSTEM
+          qplot(displ, hwy, data=mpg, facets =.~drv) - 3 panels next to each other
+          qplot(displ, hwy, data=mpg, facets =drv~.) - 3 panels stacked on each other
+       ggplot can make more customizable 
+          object + geom_point(aes(color = categorical variable)) + labs(title="Title") + labs(x="xtitle", y="ytitle")
+          g + geom_point(aes(color = drv),size=2,alpha=1/2) + geom_smooth(size=4,linetype=3,method="lm",se=FALSE)
+          g <- ggplot(testdat, aes(x=myx, y=myy)) - set limits on line plot
         
