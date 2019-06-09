@@ -1,0 +1,74 @@
+## About knitr package in R
+     - R package written by Yihui Xie, supports Rmarkdown, LaTeX, and HTML
+    - knitr is good for manuals, technical documents, tutorials, reports, data pre-processing 
+    - knitr is not good for long research articles, time-consunming computations, documents that require precise formatting
+    - Reads and evaluates the code of a markdown file
+    - RMarkdown file -> Markdown file (knitr) -> convert to html -> view in browser
+    - Never edit the markdown or html file, only edit the Rmarkdown file
+    - Can organize analysis by having a single document that integrates the code and data
+    - Literate statistical programming - idea from Don Kuth 
+        Text and code all in one place
+        Code is alive - if code doesn't run then you know you have an error
+        Can be difficult to edit if there is a lot of code
+    - Save the raw dataset + pre-processing code
+    - Save data in non-proprietary format
+## Markdown
+    - Simple, intuititve formatting elements
+    - A simplified version of "markup" languages
+    - Use simple text editor
+    
+## Using knitr in RStudio
+   - Select 'R Markdown' file in RStudio (.Rmd)
+   - RStudio will provide a template to follow
+   - ```{r} ##start of code chunk ``` ##end of code chunk
+   - Press Knit HTML - runs the Rcode in the Markdown file
+   - knitr takes original rMarkdown document and processes it into a regular Markdown document - adds the result of the Rcode into the markdown file
+   - Code in the code chunk will be echoed in the code chunks of the document
+   - Process: .Rmd -> .md -> .html ##only edit the original Rmarkdown file
+   - Making tables with "xtable" package library(xtable
+   - Set global options
+      results: "asis", "hide"
+      echo: TRUE, FALSE
+      Figures: fig.height, fig.width
+      caching computations: cache=TRUE ##useful for complex code chunks
+      
+
+## Markdown Code
+   - Headings
+        # This is a primary heading (think <h1> in HTML)
+        ## This is a secondary heading
+        ### This is a tertiary heading
+   - Italics
+        *This text will appear italicized!*
+        _so will this text_
+    - Bold
+        **This text will appear bold!**
+        __as will this text__
+    - Unordered Lists
+        - first item in list
+        - second item in list
+        - third item in list
+    - Ordered Lists
+          1. first item in list
+          2. second item in list
+          3. third item in list
+    - Links
+          Inline links can be formatted with the following syntax.
+          The number one school of the public health is the [Johns \
+          Hopkins Bloomberg School of Public Health](http://www.jhs\
+          ph.edu/).
+          The first thing you always want to do is [Download R](htt\
+          p://www.r-project.org/).
+          The second thing you want to do is get [RStudio](http://w\
+          ww.rstudio.com/)
+      - Newlines
+          Newlines require a double space after the end of a line.
+          If you just hit “enter/return” at the end of a line this is what
+          you get
+          
+  
+   
+   
+
+    
+    
