@@ -1,0 +1,49 @@
+Using Relational Database in R
+
+  admissions <- tbl(con, "mimic3_demo.ADMISSIONS")
+  patients <- tbl(con, "mimic3_demo.PATIENTS")
+
+  patients %>% 
+  select(DOB)
+  
+  admissions %>% 
+  filter(ADMISSION_TYPE=="EMERGENCY")
+  
+  patients %>% 
+  rename(DEAD = EXPIRE_FLAG)
+  
+  admissions %>% 
+  mutate(EMERGENCY = case_when(ADMISSION_TYPE == "EMERGENCY" ~ 1, TRUE ~ 0))
+  
+  icustays <- tbl(con, "mimic3_demo.ICUSTAYS")
+  patients %>% 
+  inner_join(icustays, 
+             by = c("SUBJECT_ID" = "SUBJECT_ID"), 
+             suffix = c("_p","_i"))
+             
+  admissions %>% 
+  group_by(ADMISSION_TYPE) %>% 
+  summarise(count_admissions = n_distinct(HADM_ID))
+  
+  icustays %>% 
+  group_by(SUBJECT_ID) %>% 
+  summarise(count_icu = n_distinct(ICUSTAY_ID)) %>% 
+  arrange(desc(count_icu))
+  
+  icustays %>% 
+  group_by(HADM_ID) %>% 
+  summarise(count_icu = n_distinct(ICUSTAY_ID)) %>% 
+  arrange(desc(count_icu))
+  
+  admissions %>% 
+  collect() %>% 
+  unite(col = "ADMISSION_DETAILS", 
+        c("ADMISSION_TYPE", "ADMISSION_LOCATION"), 
+        sep = "_", 
+        remove = TRUE) %>% 
+  count(ADMISSION_DETAILS)
+  
+  admissions %>% 
+  ggplot() +
+  geom_bar(aes(x = ADMISSION_LOCATION, fill = ADMISSION_TYPE)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
