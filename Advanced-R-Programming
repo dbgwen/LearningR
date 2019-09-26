@@ -78,6 +78,11 @@ CONTROL STRUCTURES
  FUNCTIONS
 Functions are used to encapsulate a sequence of expressions that are executed together to achieve a specific goal. A single function typically does "one thing well"---often taking some input and the generating output that can potentially be handed off to another function for further processing. 
 
+John Chambers, the creator of R once said: To understand computations in R, two slogans are helpful: 
+1. Everything that exists is an object.
+2. Everything that happens is a function call.
+
+
             # Examples
                         library(readr)
                         library(dplyr)
